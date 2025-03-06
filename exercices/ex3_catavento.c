@@ -2,7 +2,7 @@
 #include <GL/gl.h>
 #include <GL/glut.h>
 
-// Cores do catavento: Branco, Vermelho, Azul, Verde
+// Cores do catavento: 0 - Branco, 1 - Vermelho, 2 - Azul, 3 - Verde
 GLfloat r[] = {1.0, 1.0, 0.00, 0.0};
 GLfloat g[] = {1.0, 0.0, 0.00, 1.0};
 GLfloat b[] = {1.0, 0.0, 1.00, 0.0};
@@ -17,7 +17,18 @@ int mod(int a, int b)
     return r < 0 ? r + b : r;
 }
 
-void renderPinwhell() {
+void pinwheelFunc() {
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    glColor3f(0.90, 0.66, 0.10);
+    glBegin(GL_POLYGON);
+        glVertex2i(248, 250);
+        glVertex2i(251, 250);
+        glVertex2i(248, 100);
+        glVertex2i(251, 100);
+    glEnd();
+
+    // Folhas do catavento
     glColor3f(r[mod(offset, 4)], g[mod(offset, 4)], b[mod(offset, 4)]);
     glBegin(GL_TRIANGLES);
         glVertex2i(250, 320);
@@ -44,21 +55,7 @@ void renderPinwhell() {
         glVertex2i(250, 320);
         glVertex2i(150, 370);
         glVertex2i(150, 270);
-    glEnd();    
-}
-
-void pinWhellFunc() {
-    glClear(GL_COLOR_BUFFER_BIT);
-
-    glColor3f(0.90, 0.66, 0.10);
-    glBegin(GL_POLYGON);
-        glVertex2i(248, 250);
-        glVertex2i(251, 250);
-        glVertex2i(248, 100);
-        glVertex2i(251, 100);
-    glEnd();
-
-    renderPinwhell(offset);
+    glEnd(); 
 
     glFlush();
 }
@@ -90,11 +87,11 @@ int main(int argc, char** argv) {
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
     glutInitWindowSize(500, 500);
     glutInitWindowPosition(200, 1000);
-    glutCreateWindow("Catavento");
+    glutCreateWindow("Cata-vento");
 
     init();
 
-    glutDisplayFunc(pinWhellFunc);
+    glutDisplayFunc(pinwheelFunc);
     glutSpecialFunc(handleKeyboard);
 
     glutMainLoop();
