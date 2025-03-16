@@ -23,44 +23,58 @@ void display(void){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	    
 	glPushMatrix();
-		glColor3f (0.0, 0.0, 1.0);
-        glRotatef ((GLfloat) year, 1.0, 0.0, 0.0);
-        glRotatef ((GLfloat) day, 0.0, 0.0, 1.0);
-        glutWireSphere(1.0, 20, 16);   /* desenha o sol */
+		glColor3f(0.0, 0.0, 1.0);
+
+        glRotatef((GLfloat) year, 1.0, 0.0, 0.0);
+
+        glRotatef((GLfloat) day, 0.0, 0.0, 1.0);
+        glutWireSphere(1.0, 20, 16); 
 	glPopMatrix();
     
 	glPushMatrix();
-		glColor3f (1.0, 1.0, 1.0);
-        glRotatef ((GLfloat) year, 0.0, 1.0, 0.0);
-        glTranslatef (2.0, 0.0, 0.0); //Translada a partir do novo sistema de coordenadas resultante da Rotacao
-        glRotatef ((GLfloat) day, 0.0, 1.0, 0.0);
-        glutWireSphere(0.2, 10, 8);    /* desenha um planeta */
+		glColor3f(1.0, 1.0, 1.0);
+
+        glRotatef((GLfloat) year, 0.0, 1.0, 0.0);
+        glTranslatef(2.0, 0.0, 0.0);
+
+        glRotatef((GLfloat) day, 0.0, 1.0, 0.0);
+        glutWireSphere(0.2, 10, 8);
 	glPopMatrix();
 
     glPushMatrix();
-		glColor3f (1.0, 1.0, 0.0);
-        glRotatef ((GLfloat) -year, 0.0, 1.0, 0.0);
-        glTranslatef (4.0, 0.0, 0.0); //Translada a partir do novo sistema de coordenadas resultante da Rotacao
-        glRotatef ((GLfloat) day, 0.0, 1.0, 0.0);
-        glutWireSphere(0.3, 10, 8);    /* desenha um planeta */
-	glPopMatrix();
+		glColor3f(1.0, 1.0, 0.0);
 
-    glPushMatrix();
-		glColor3f (1.0, 0.0, 0.0);
-        glRotatef ((GLfloat) -year, 0.0, 1.0, 0.0);
-        glRotatef ((GLfloat) -year, 1.0, 0.0, 0.0);
-        glTranslatef (4.0, 0.6, 0.0); //Translada a partir do novo sistema de coordenadas resultante da Rotacao
-        glRotatef ((GLfloat) day, 0.0, 1.0, 0.0);
-        glutWireSphere(0.1, 10, 8);    /* desenha um planeta */
-	glPopMatrix();
-
-    glPushMatrix();
-		glColor3f (0.0, 1.0, 1.0);
         glRotatef((GLfloat) -year, 0.0, 1.0, 0.0);
         glTranslatef(4.0, 0.0, 0.0);
+
+        glRotatef((GLfloat) day, 0.0, 1.0, 0.0);
+        glutWireSphere(0.3, 10, 8); 
+	glPopMatrix();
+
+    glPushMatrix();
+		glColor3f(1.0, 0.0, 0.0);
+
+        glRotatef((GLfloat) -year, 0.0, 1.0, 0.0);
+        glTranslatef(4.0, 0.0, 0.0);
+
+        glRotatef((GLfloat) -year, 1.0, 0.0, 0.0);
+        glTranslatef (0.0, 0.6, 0.0);
+
+        glRotatef((GLfloat) day, 0.0, 1.0, 0.0);
+        glutWireSphere(0.1, 10, 8); 
+	glPopMatrix();
+
+    glPushMatrix();
+		glColor3f(0.0, 1.0, 1.0);
+
+        glRotatef((GLfloat) -year, 0.0, 1.0, 0.0);
+        glTranslatef(4.0, 0.0, 0.0);
+
         glRotatef((GLfloat) year, 1.0, 1.0, 0.0);
-        glTranslatef(0.0, 0.0, 1.0);
-        glutWireSphere(0.1, 10, 8);    /* desenha um planeta */
+        glTranslatef(0.0, 0.0, 0.8);
+
+        glRotatef((GLfloat) day, 0.0, 1.0, 0.0);
+        glutWireSphere(0.1, 10, 8);
 	glPopMatrix();
     
     glutSwapBuffers();
@@ -80,19 +94,19 @@ void reshape (int w, int h){
 void keyboard (unsigned char key, int x, int y){
 	switch (key) {
         case 'd':
-            day = (day + 10) % 360;  //% valor do resto
-            glutPostRedisplay(); //Redesenha a cena com novas coordenadas, é executado no glutMainLoop;
+            day = (day + 10) % 360;
+            glutPostRedisplay();
             break;
         case 'D':
             day = (day - 10) % 360;
             glutPostRedisplay();
             break;
         case 'y':
-            year = (year + 5) % 360;
+            year = (year + 2) % 360;
             glutPostRedisplay();
             break;
         case 'Y':
-            year = (year - 5) % 360;
+            year = (year - 2) % 360;
             glutPostRedisplay();
             break;
         default:
