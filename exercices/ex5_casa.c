@@ -15,11 +15,10 @@ void reshape (int w, int h);
 #define LARANJA  0.8, 0.6, 0.1
 #define ROSEO    0.7, 0.1, 0.6
 #define CINZA    0.6, 0.6, 0.6
-#define COR1   0.5, 0.5, 0.0
-#define COR2   0.5, 0.0, 0.5
-#define BRANCO 1.0, 1.0, 1.0
+#define BRANCO   0.8, 0.8, 0.8
+#define MARROM   0.8, 0.5, 0.4
 
-static GLfloat vertices[33]={
+static GLfloat vertices[39]={
   0.0,  30.0, 30.0, /* 0 */
   20.0, 30.0, 30.0, /* 1 */
   30.0, 20.0, 30.0, /* 2 */
@@ -30,7 +29,9 @@ static GLfloat vertices[33]={
   30.0,  0.0,  0.0, /* 7 */
   0.0,   0.0,  0.0, /* 8 */
   30.0, 30.0, 20.0, /* 9 */
-  30.0, 30.0, 30.0  /*10 */
+  30.0, 30.0, 30.0, /* 10 */
+  0.0, 45.0, 15.0,  /* 11 */
+  30.0, 45.0, 15.0  /* 12 */
 }; 
 
 static GLubyte frenteIndices[]    = {0,4,3,2,1};
@@ -40,9 +41,14 @@ static GLubyte direitaIndices[]   = {2,3,7,6,9};
 static GLubyte topoIndices[]      = {0,1,9,6,5};
 static GLubyte fundoIndices[]     = {3,4,8,7};
 static GLubyte trianguloIndices[] = {1,2,9};
-static GLubyte piramideEsquerda[] = {1, 2, 10};
-static GLubyte piramideDireita[] = {2, 9, 10};
-static GLubyte piramideTopo[] = {1,10, 9};
+static GLubyte piramideEsquerda[] = {1,2,10};
+static GLubyte piramideDireita[] = {2,9,10};
+static GLubyte piramideTopo[] = {1,10,9};
+static GLubyte telhadoEsquerda[] = {0,11,5};
+static GLubyte telhadoDireita[] = {6,12,10};
+static GLubyte telhadoFront[] = {10,12,11,0};
+static GLubyte telhadoBack[] = {12,6,5,11};
+
 
     
 static int eixoy, eixox;
@@ -59,7 +65,7 @@ int main(int argc, char** argv){
   int i;
   glutInit(&argc, argv);
   glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB);
-  glutInitWindowSize (256, 256); 
+  glutInitWindowSize (1000, 700); 
   glutInitWindowPosition (100, 100); 
   glutCreateWindow (argv[0]);
   init();
@@ -112,12 +118,25 @@ void display(void){
 
   glColor3f (CINZA); /* triangulo */
   glDrawElements(GL_POLYGON, 3, GL_UNSIGNED_BYTE, trianguloIndices);
-  glColor3f (COR1); /* triangulo */
+
+  // Faces da pirâmide que completa o buraco (reboco)
+  glColor3f (BRANCO);
   glDrawElements(GL_POLYGON, 3, GL_UNSIGNED_BYTE, piramideEsquerda);
-  glColor3f (COR2); /* triangulo */
+  glColor3f (BRANCO);
   glDrawElements(GL_POLYGON, 3, GL_UNSIGNED_BYTE, piramideDireita);
-  glColor3f (BRANCO); /* triangulo */
+  glColor3f (BRANCO);
   glDrawElements(GL_POLYGON, 3, GL_UNSIGNED_BYTE, piramideTopo);
+
+  // Telhado
+  glColor3f (MARROM);
+  glDrawElements(GL_POLYGON, 3, GL_UNSIGNED_BYTE, telhadoEsquerda);
+  glColor3f (MARROM);
+  glDrawElements(GL_POLYGON, 3, GL_UNSIGNED_BYTE, telhadoDireita);
+
+  glColor3f (MARROM);
+  glDrawElements(GL_QUADS, 4, GL_UNSIGNED_BYTE, telhadoFront);
+  glColor3f (MARROM);
+  glDrawElements(GL_QUADS, 4, GL_UNSIGNED_BYTE, telhadoBack);
 
   glDisableClientState (GL_VERTEX_ARRAY);
 
