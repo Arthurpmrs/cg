@@ -19,7 +19,7 @@ void reshape (int w, int h);
 #define BRANCO   0.8, 0.8, 0.8
 #define MARROM   0.8, 0.5, 0.4
 
-static GLfloat vertices[39]={
+static GLfloat vertices[51]={
   0.0,  30.0, 30.0, /* 0 */
   20.0, 30.0, 30.0, /* 1 */
   30.0, 20.0, 30.0, /* 2 */
@@ -32,7 +32,11 @@ static GLfloat vertices[39]={
   30.0, 30.0, 20.0, /* 9 */
   30.0, 30.0, 30.0, /* 10 */
   0.0, 45.0, 15.0,  /* 11 */
-  30.0, 45.0, 15.0  /* 12 */
+  30.0, 45.0, 15.0,  /* 12 */
+  0.0, 10.0, 10.0, /* 13 */
+  0.0, 10.0, 20.0, /* 14 */
+  0.0, 0.0, 10.0, /* 15 */
+  0.0, 0.0, 20.0  /* 16 */
 }; 
 
 static GLubyte frenteIndices[]    = {0,4,3,2,1};
@@ -49,6 +53,7 @@ static GLubyte telhadoEsquerda[] = {0,11,5};
 static GLubyte telhadoDireita[] = {6,12,10};
 static GLubyte telhadoFront[] = {10,12,11,0};
 static GLubyte telhadoBack[] = {12,6,5,11};
+static GLubyte porta[] = {13,15,16,14};
 
 
     
@@ -137,6 +142,9 @@ void display(void){
   glDrawElements(GL_QUADS, 4, GL_UNSIGNED_BYTE, telhadoFront);
   glColor3f (MARROM);
   glDrawElements(GL_QUADS, 4, GL_UNSIGNED_BYTE, telhadoBack);
+
+  glColor3f (MARROM);
+  glDrawElements(GL_QUADS, 4, GL_UNSIGNED_BYTE, porta);
 
   glDisableClientState (GL_VERTEX_ARRAY);
 
