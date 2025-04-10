@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <GL/gl.h>
 #include <GL/glut.h>
+#include <math.h>
 
 void init(void);
 void display(void);
@@ -53,13 +54,12 @@ static GLubyte telhadoBack[] = {12,6,5,11};
     
 static int eixoy, eixox;
 int largura, altura;
-int cx = 0;
-int cy = 0;
-int cz = -90;
-int eyex = 0;
-int eyey = 0;
-int eyez = -90;
-int angle = 0;
+double cx = 120.0;
+double cy = 0.0;
+double cz = 0.0;
+double angle = 0.0;
+double angle_radian = 0.0;
+double d = 120.0;
 
 int main(int argc, char** argv){
   int i;
@@ -170,13 +170,33 @@ void keyboard(unsigned char key, int x, int y){
     break;
   case 'p':
     glLoadIdentity();
-    gluPerspective(65.0, (GLfloat) largura/(GLfloat) altura, 20.0, 120.0);
-    gluLookAt(cx, cy, cz, 0, 0, 0, 0, 1, 0);
+    gluPerspective(65.0, (GLfloat) largura/(GLfloat) altura, 20.0, 300.0);
+    gluLookAt(cx, cy, cz, 15, 15, 15, 0, 1, 0);
     glutPostRedisplay();
     break;
   case 'o':
     glLoadIdentity();
-    glOrtho (-50, 50, -50, 50, -50 , 50);
+    glOrtho(-50, 50, -50, 50, -50 , 50);
+    glutPostRedisplay();
+    break;
+  case 'e':
+    angle += 5.0;
+    angle_radian = (2 * 3.14 * angle) / 360.0;
+    cx = d * cos(angle_radian);
+    cz = d * sin(angle_radian);
+    glLoadIdentity();
+    gluPerspective(65.0, (GLfloat) largura/(GLfloat) altura, 10.0, 400.0);
+    gluLookAt(cx, cy, cz, 15, 15, 15, 0, 1, 0);
+    glutPostRedisplay();
+    break;
+  case 'q':
+    angle += 5.0;
+    angle_radian = (2 * 3.14 * angle) / 360.0;
+    cx = d * cos(angle_radian);
+    cy = d * sin(angle_radian);
+    glLoadIdentity();
+    gluPerspective(65.0, (GLfloat) largura/(GLfloat) altura, 10.0, 400.0);
+    gluLookAt(cx, cy, cz, 15, 15, 15, 0, 1, 0);
     glutPostRedisplay();
     break;
   }
